@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07160f" />
+  <meta name="description" content="TLOZ.net — an unofficial fan-made tribute to The Legend of Zelda, with a launch timeline and spoiler-light story guide." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://tloz.net/" />
+  <meta property="og:title" content="TLOZ.net — Hero of the Ages" />
+  <meta property="og:description" content="Explore the eras, stories, and enduring spirit of The Legend of Zelda." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tloz.net/" />
+  <title>TLOZ.net — Hero of the Ages</title>
+  <style>
+    :root{
+      --ink:#e8f1df;
+      --muted:#aab9a8;
+      --forest:#07160f;
+      --forest-2:#0b2418;
+      --forest-3:#113323;
+      --gold:#d7b352;
+      --gold-2:#f0d884;
+      --jade:#55a773;
+      --line:rgba(215,179,82,.24);
+      --panel:rgba(10,29,20,.78);
+      --shadow:0 24px 80px rgba(0,0,0,.34);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 50% -10%, rgba(85,167,115,.18), transparent 35%),
+        linear-gradient(180deg, #040c08 0%, var(--forest) 42%, #030906 100%);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.22;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:32px 32px;
+      mask-image:linear-gradient(to bottom, black, transparent 82%);
+      z-index:-2;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .wrap{width:min(1160px, calc(100% - 38px));margin:auto}
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(16px);
+      background:linear-gradient(180deg, rgba(4,12,8,.92), rgba(4,12,8,.65));
+      border-bottom:1px solid rgba(215,179,82,.12);
+    }
+
+    .nav{
+      min-height:70px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:22px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:.08em;
+    }
+    .brand-mark{
+      width:30px;height:30px;position:relative;filter:drop-shadow(0 0 14px rgba(215,179,82,.28));
+    }
+    .brand-mark i{
+      position:absolute;
+      width:0;height:0;
+      border-left:8px solid transparent;
+      border-right:8px solid transparent;
+      border-bottom:14px solid var(--gold);
+    }
+    .brand-mark i:nth-child(1){left:7px;top:0}
+    .brand-mark i:nth-child(2){left:0;top:13px}
+    .brand-mark i:nth-child(3){left:14px;top:13px}
+
+    .nav-links{display:flex;gap:22px;color:var(--muted);font-size:.94rem}
+    .nav-links a{transition:.2s ease}
+    .nav-links a:hover{color:var(--gold-2)}
+
+    .hero{
+      position:relative;
+      min-height:86vh;
+      display:grid;
+      place-items:center;
+      isolation:isolate;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:720px;height:720px;
+      border:1px solid rgba(215,179,82,.14);
+      border-radius:50%;
+      box-shadow:
+        0 0 0 90px rgba(215,179,82,.018),
+        0 0 0 180px rgba(215,179,82,.012);
+      z-index:-1;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:auto 0 0 0;
+      height:32%;
+      background:
+        linear-gradient(170deg, transparent 48%, #07130d 49%) 0 0/44% 100% no-repeat,
+        linear-gradient(190deg, transparent 48%, #081811 49%) 100% 0/55% 100% no-repeat;
+      opacity:.92;
+      z-index:-1;
+    }
+
+    .hero-content{text-align:center;padding:110px 0 150px}
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--gold-2);
+      background:rgba(7,22,15,.68);
+      letter-spacing:.13em;
+      text-transform:uppercase;
+      font-size:.76rem;
+      font-weight:800;
+    }
+    .eyebrow::before,.eyebrow::after{content:"✦";font-size:.6rem}
+
+    h1,h2,h3{
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight:700;
+      text-wrap:balance;
+    }
+    h1{
+      margin:22px auto 16px;
+      max-width:900px;
+      font-size:clamp(3.3rem, 8vw, 7rem);
+      line-height:.88;
+      letter-spacing:-.055em;
+      text-shadow:0 12px 40px rgba(0,0,0,.45);
+    }
+    h1 .gold{
+      display:block;
+      color:var(--gold-2);
+      font-style:italic;
+      font-weight:600;
+      font-size:.62em;
+      letter-spacing:-.035em;
+      margin-top:10px;
+    }
+
+    .hero p{
+      width:min(700px, 92%);
+      margin:0 auto;
+      color:var(--muted);
+      font-size:clamp(1rem, 2vw, 1.18rem);
+      line-height:1.75;
+    }
+
+    .hero-actions{
+      margin-top:30px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      min-height:46px;
+      padding:0 18px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(12,37,25,.7);
+      color:var(--ink);
+      font-weight:800;
+      transition:transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .btn:hover{transform:translateY(-2px);border-color:rgba(240,216,132,.55)}
+    .btn.primary{
+      background:linear-gradient(135deg, #b58d2f, var(--gold-2));
+      color:#1c1608;
+      border-color:transparent;
+      box-shadow:0 10px 35px rgba(215,179,82,.18);
+    }
+
+    .crest{
+      width:156px;
+      aspect-ratio:1;
+      margin:40px auto 0;
+      position:relative;
+      opacity:.9;
+    }
+    .crest::before,.crest::after{
+      content:"";
+      position:absolute;
+      inset:50% auto auto 50%;
+      transform:translate(-50%,-50%) rotate(45deg);
+      width:92px;height:92px;
+      border:1px solid rgba(215,179,82,.25);
+    }
+    .crest::after{
+      width:118px;height:118px;
+      transform:translate(-50%,-50%) rotate(45deg);
+      border-color:rgba(85,167,115,.2);
+    }
+
+    section{padding:95px 0}
+    .section-kicker{
+      color:var(--gold);
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:.74rem;
+      font-weight:900;
+      margin-bottom:12px;
+    }
+    .section-title{
+      font-size:clamp(2.25rem, 5vw, 4.3rem);
+      margin:0 0 18px;
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+    .section-lead{
+      max-width:720px;
+      color:var(--muted);
+      font-size:1.07rem;
+      line-height:1.8;
+      margin:0;
+    }
+
+    .virtues{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:38px;
+    }
+    .virtue{
+      min-height:280px;
+      padding:28px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:
+        linear-gradient(180deg, rgba(18,52,35,.78), rgba(8,25,17,.88)),
+        radial-gradient(circle at 100% 0, rgba(215,179,82,.16), transparent 36%);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .virtue::after{
+      content:"";
+      position:absolute;
+      right:-24px;bottom:-36px;
+      width:130px;height:130px;
+      border:1px solid rgba(215,179,82,.14);
+      transform:rotate(45deg);
+    }
+    .virtue .num{font:700 4rem/1 Georgia,serif;color:rgba(240,216,132,.18)}
+    .virtue h3{font-size:1.7rem;margin:36px 0 10px}
+    .virtue p{color:var(--muted);line-height:1.7;margin:0}
+
+    .adventures{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
+      margin-top:40px;
+    }
+    .adventure{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      min-height:300px;
+      padding:30px;
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(145deg, rgba(13,41,27,.86), rgba(5,17,11,.9));
+    }
+    .adventure.big{grid-row:span 2;min-height:620px}
+    .adventure .glyph{
+      position:absolute;
+      right:26px;top:24px;
+      font-size:4rem;
+      color:rgba(240,216,132,.13);
+      font-family:Georgia,serif;
+    }
+    .adventure h3{font-size:2rem;margin:0 0 10px}
+    .adventure p{color:var(--muted);line-height:1.75;max-width:36rem}
+    .meta{
+      display:inline-flex;
+      margin-bottom:22px;
+      font-size:.78rem;
+      color:var(--gold-2);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-weight:900;
+    }
+    .adventure.big .art{
+      position:absolute;inset:auto 0 0 0;height:46%;
+      background:
+        radial-gradient(circle at 62% 28%, rgba(240,216,132,.24) 0 4%, transparent 5%),
+        linear-gradient(160deg, transparent 43%, rgba(28,77,49,.7) 44% 58%, transparent 59%) 10% 0/50% 100% no-repeat,
+        linear-gradient(200deg, transparent 45%, rgba(22,61,40,.9) 46%) 100% 0/65% 100% no-repeat,
+        linear-gradient(180deg, transparent, rgba(4,13,8,.65));
+      opacity:.88;
+    }
+
+    .timeline{
+      margin-top:40px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:1px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      background:var(--line);
+    }
+    .era{
+      background:rgba(7,24,16,.97);
+      padding:26px;
+      min-height:245px;
+    }
+    .era .year{color:var(--gold);font-size:.8rem;font-weight:900;letter-spacing:.12em}
+    .era h3{font-size:1.35rem;margin:18px 0 10px}
+    .era p{color:var(--muted);line-height:1.65;font-size:.94rem;margin:0}
+
+    .quote-band{
+      margin-top:20px;
+      border-block:1px solid var(--line);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(215,179,82,.10), transparent 34%),
+        rgba(6,18,12,.7);
+      text-align:center;
+    }
+    .quote-band .inner{padding:80px 0}
+    .quote-band .symbol{color:var(--gold-2);font-size:2.2rem}
+    .quote-band p{
+      font:italic 600 clamp(1.7rem, 4vw, 3.2rem)/1.25 Georgia,serif;
+      max-width:900px;
+      margin:18px auto 0;
+      text-wrap:balance;
+    }
+
+    .join{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+      align-items:center;
+      padding:40px;
+      border:1px solid var(--line);
+      border-radius:calc(var(--radius) + 6px);
+      background:
+        radial-gradient(circle at 85% 25%, rgba(85,167,115,.16), transparent 30%),
+        linear-gradient(135deg, rgba(15,47,31,.94), rgba(6,20,13,.95));
+      box-shadow:var(--shadow);
+    }
+    .join h2{margin:0 0 12px;font-size:clamp(2rem,4vw,3.5rem)}
+    .join p{color:var(--muted);line-height:1.7;margin:0}
+    .join .cta{text-align:right}
+
+    footer{
+      border-top:1px solid rgba(215,179,82,.12);
+      padding:34px 0 42px;
+      color:#819083;
+      font-size:.86rem;
+    }
+    .footer-grid{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+    .footer-grid p{margin:0;max-width:720px;line-height:1.6}
+    .tiny-brand{color:var(--gold-2);font-weight:900;letter-spacing:.08em}
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible{opacity:1;transform:none}
+
+
+    .guide-section{border-block:1px solid rgba(215,179,82,.14);background:radial-gradient(circle at 82% 12%,rgba(85,167,115,.08),transparent 28%),rgba(4,14,9,.46)}
+    .guide-head{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end}.guide-note{color:#7f9183;font-size:.88rem;line-height:1.6;max-width:350px;text-align:right}
+    .guide-tools{display:flex;gap:10px;align-items:center;margin:30px 0 34px;flex-wrap:wrap}.search-box{position:relative;flex:1;min-width:230px}.search-box input{width:100%;height:48px;padding:0 44px 0 16px;border-radius:12px;border:1px solid var(--line);outline:none;color:var(--ink);background:rgba(7,25,16,.92)}.search-box input:focus{border-color:rgba(240,216,132,.6);box-shadow:0 0 0 3px rgba(215,179,82,.08)}.search-box::after{content:"⌕";position:absolute;right:15px;top:9px;color:var(--gold-2);font-size:1.35rem}.tool-btn{height:48px;padding:0 15px;border-radius:12px;border:1px solid var(--line);color:var(--muted);background:rgba(7,25,16,.92);cursor:pointer;font-weight:800}.tool-btn:hover{color:var(--ink);border-color:rgba(240,216,132,.48)}.result-count{color:#7f9183;font-size:.84rem;margin-left:auto;white-space:nowrap}
+    .game-timeline{list-style:none;padding:0;margin:0;position:relative}.game-timeline::before{content:"";position:absolute;left:63px;top:18px;bottom:18px;width:1px;background:linear-gradient(var(--gold),rgba(215,179,82,.15))}.game-entry{display:grid;grid-template-columns:128px 1fr;position:relative;margin:0 0 14px}.game-entry[hidden]{display:none}.launch-year{position:relative;z-index:1;align-self:start;justify-self:start;margin-top:21px;min-width:74px;padding:6px 10px;border-radius:999px;border:1px solid rgba(215,179,82,.34);color:var(--gold-2);background:#081a11;font-weight:900;font-size:.83rem;text-align:center;letter-spacing:.08em}.game-card{border:1px solid rgba(215,179,82,.18);border-radius:16px;background:rgba(8,27,18,.76);overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,.13)}.game-card[open]{border-color:rgba(215,179,82,.36);background:rgba(10,33,22,.88)}.game-card summary{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) auto 28px;gap:20px;align-items:center;min-height:82px;padding:16px 18px;cursor:pointer}.game-card summary::-webkit-details-marker{display:none}.game-heading{display:flex;flex-direction:column;gap:5px;min-width:0}.game-title{font:700 1.28rem/1.2 Georgia,serif;color:var(--ink)}.game-tag{color:#7f9183;font-size:.8rem;text-transform:uppercase;letter-spacing:.11em;font-weight:900}.platform{color:var(--muted);font-size:.86rem;text-align:right;max-width:225px}.chevron{color:var(--gold-2);font-size:1.25rem;transition:transform .2s ease}.game-card[open] .chevron{transform:rotate(45deg)}.synopsis{padding:0 18px 20px;border-top:1px solid rgba(215,179,82,.09)}.synopsis-label{padding-top:17px;color:var(--gold);font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;font-weight:900}.synopsis p{max-width:880px;margin:8px 0 0;color:#bdc8bc;line-height:1.75}.empty-state{display:none;margin:18px 0;padding:22px;border:1px dashed var(--line);border-radius:14px;color:var(--muted)}.empty-state.show{display:block}
+    @media(max-width:900px){.guide-head{grid-template-columns:1fr}.guide-note{text-align:left;max-width:720px}.game-card summary{grid-template-columns:1fr 28px;gap:10px}.platform{grid-column:1;text-align:left}.chevron{grid-column:2;grid-row:1/3}}
+    @media(max-width:620px){.game-timeline::before{left:30px}.game-entry{grid-template-columns:72px 1fr}.launch-year{min-width:59px;padding:5px 7px;font-size:.72rem;margin-top:20px}.game-card summary{padding:15px}.game-title{font-size:1.13rem}.result-count{width:100%;margin-left:0}}
+
+    @media (max-width:850px){
+      .nav-links{display:none}
+      .virtues,.timeline{grid-template-columns:1fr}
+      .adventures{grid-template-columns:1fr}
+      .adventure.big{grid-row:auto;min-height:500px}
+      .join{grid-template-columns:1fr;padding:28px}
+      .join .cta{text-align:left}
+      .hero{min-height:auto}
+      .hero-content{padding:110px 0 130px}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .reveal{opacity:1;transform:none;transition:none}
+      .btn{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="TLOZ.net home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>TLOZ.NET</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#legend">The Legend</a>
+        <a href="#adventures">Adventures</a>
+        <a href="#game-guide">Game Guide</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-content reveal">
+        <div class="eyebrow">An unofficial fan-made archive</div>
+        <h1>Hero of the Ages <span class="gold">A tribute to Hyrule</span></h1>
+        <p>
+          TLOZ.net is a fan-built celebration of the worlds, legends, dungeons,
+          discoveries, and unforgettable adventures that have defined The Legend of Zelda.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#adventures">Explore the eras ↓</a>
+          <a class="btn" href="#about">About this fan site</a>
+        </div>
+        <div class="crest" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="legend">
+      <div class="wrap">
+        <div class="section-kicker reveal">The eternal cycle</div>
+        <h2 class="section-title reveal">Three virtues. One legend.</h2>
+        <p class="section-lead reveal">
+          Across shifting ages and different kingdoms, the series returns to a timeless
+          tension between courage, wisdom, and power — and to the people who choose what to do with them.
+        </p>
+
+        <div class="virtues">
+          <article class="virtue reveal">
+            <div class="num">I</div>
+            <h3>Courage</h3>
+            <p>To step beyond the familiar, enter the unknown, and keep moving when the path ahead is hidden.</p>
+          </article>
+          <article class="virtue reveal">
+            <div class="num">II</div>
+            <h3>Wisdom</h3>
+            <p>To understand the world, solve what seems impossible, and see the answer where others see a wall.</p>
+          </article>
+          <article class="virtue reveal">
+            <div class="num">III</div>
+            <h3>Power</h3>
+            <p>A force that can protect, conquer, restore, or corrupt — depending entirely on the hand that holds it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="adventures">
+      <div class="wrap">
+        <div class="section-kicker reveal">Across the ages</div>
+        <h2 class="section-title reveal">Every Hyrule feels like a memory.</h2>
+        <p class="section-lead reveal">
+          Different maps. Different art styles. Different heroes. The same feeling of standing at the edge of a vast world
+          and wondering what waits beyond the next hill.
+        </p>
+
+        <div class="adventures">
+          <article class="adventure big reveal">
+            <span class="glyph" aria-hidden="true">△</span>
+            <span class="meta">Open-air era</span>
+            <h3>Breath of the Wild & Tears of the Kingdom</h3>
+            <p>
+              A Hyrule built for curiosity: climb it, glide over it, descend beneath it, and turn every strange idea
+              into an experiment.
+            </p>
+            <div class="art" aria-hidden="true"></div>
+          </article>
+
+          <article class="adventure reveal">
+            <span class="glyph" aria-hidden="true">◈</span>
+            <span class="meta">Hero of Time</span>
+            <h3>Ocarina of Time</h3>
+            <p>A landmark journey through childhood, destiny, time, temples, and a kingdom transformed.</p>
+          </article>
+
+          <article class="adventure reveal">
+            <span class="glyph" aria-hidden="true">☾</span>
+            <span class="meta">Twilight era</span>
+            <h3>Twilight Princess</h3>
+            <p>A darker, grander Hyrule filled with shadow, ancient ruins, strange allies, and cinematic scale.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="game-guide" class="guide-section">
+      <div class="wrap">
+        <div class="guide-head">
+          <div><div class="section-kicker reveal">1986 → 2024</div><h2 class="section-title reveal">Launch timeline &amp; story guide.</h2><p class="section-lead reveal">Twenty-one core original releases, arranged by first launch year. Open any entry for a concise, spoiler-light synopsis of the adventure and its original platform.</p></div>
+          <p class="guide-note reveal">This guide focuses on original core Zelda adventures. Remakes, remasters, ports, and spin-offs are intentionally excluded.</p>
+        </div>
+        <div class="guide-tools reveal" role="search" aria-label="Search the game guide">
+          <label class="search-box"><span style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Search games</span><input id="gameSearch" type="search" placeholder="Search title, year, platform, or story…" autocomplete="off"></label>
+          <button class="tool-btn" id="expandAll" type="button">Expand all</button><button class="tool-btn" id="collapseAll" type="button">Collapse all</button><span class="result-count" id="resultCount">21 adventures</span>
+        </div>
+        <ol class="game-timeline" id="gameTimeline"><li class="game-entry reveal" data-search="1986 the legend of zelda famicom disk system / nes the first quest hyrule has fallen into chaos after ganon seizes the triforce of power. before her capture, princess zelda divides the triforce of wisdom into eight fragments and hides them across the kingdom. a young traveler named link sets out to recover the pieces, brave the land’s dungeons, and challenge the evil holding hyrule in its grip.">
+      <div class="launch-year" aria-label="Original launch year 1986">1986</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">The Legend of Zelda</span><span class="game-tag">The first quest</span></span><span class="platform">Famicom Disk System / NES</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>Hyrule has fallen into chaos after Ganon seizes the Triforce of Power. Before her capture, Princess Zelda divides the Triforce of Wisdom into eight fragments and hides them across the kingdom. A young traveler named Link sets out to recover the pieces, brave the land’s dungeons, and challenge the evil holding Hyrule in its grip.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="1987 zelda ii: the adventure of link famicom disk system / nes the sleeping princess a mysterious crest appears on link’s hand and leads him to the legend of another princess zelda, trapped in an enchanted sleep. to awaken her, link must restore crystals to six distant palaces and prove himself worthy of the triforce of courage while ganon’s followers hunt him in hopes of reviving their fallen master.">
+      <div class="launch-year" aria-label="Original launch year 1987">1987</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Zelda II: The Adventure of Link</span><span class="game-tag">The sleeping princess</span></span><span class="platform">Famicom Disk System / NES</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>A mysterious crest appears on Link’s hand and leads him to the legend of another Princess Zelda, trapped in an enchanted sleep. To awaken her, Link must restore crystals to six distant palaces and prove himself worthy of the Triforce of Courage while Ganon’s followers hunt him in hopes of reviving their fallen master.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="1991 a link to the past super famicom / snes light and dark worlds when the sorcerer agahnim takes control of hyrule castle and begins sending the descendants of the seven sages into another realm, link is drawn into an ancient struggle. his search for the master sword carries him between hyrule’s light world and a corrupted dark world, where the true force behind the kingdom’s crisis waits.">
+      <div class="launch-year" aria-label="Original launch year 1991">1991</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">A Link to the Past</span><span class="game-tag">Light and Dark Worlds</span></span><span class="platform">Super Famicom / SNES</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>When the sorcerer Agahnim takes control of Hyrule Castle and begins sending the descendants of the Seven Sages into another realm, Link is drawn into an ancient struggle. His search for the Master Sword carries him between Hyrule’s Light World and a corrupted Dark World, where the true force behind the kingdom’s crisis waits.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="1993 link’s awakening game boy the dreamlike island after a storm destroys his ship, link awakens on the mysterious koholint island, a place filled with odd characters, impossible creatures, and secrets that feel half remembered. the only path home is said to be through the wind fish, so link searches the island’s dungeons for eight musical instruments needed to awaken the sleeping being.">
+      <div class="launch-year" aria-label="Original launch year 1993">1993</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Link’s Awakening</span><span class="game-tag">The dreamlike island</span></span><span class="platform">Game Boy</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>After a storm destroys his ship, Link awakens on the mysterious Koholint Island, a place filled with odd characters, impossible creatures, and secrets that feel half remembered. The only path home is said to be through the Wind Fish, so Link searches the island’s dungeons for eight musical instruments needed to awaken the sleeping being.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="1998 ocarina of time nintendo 64 the hero of time a boy raised in kokiri forest is summoned into a conflict that will decide the fate of hyrule. link joins princess zelda in an attempt to stop ganondorf from reaching the sacred realm, but destiny carries him seven years into a devastated future. as both child and adult, he awakens the sages and fights to repair the damage caused by ganondorf’s rise.">
+      <div class="launch-year" aria-label="Original launch year 1998">1998</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Ocarina of Time</span><span class="game-tag">The Hero of Time</span></span><span class="platform">Nintendo 64</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>A boy raised in Kokiri Forest is summoned into a conflict that will decide the fate of Hyrule. Link joins Princess Zelda in an attempt to stop Ganondorf from reaching the Sacred Realm, but destiny carries him seven years into a devastated future. As both child and adult, he awakens the Sages and fights to repair the damage caused by Ganondorf’s rise.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2000 majora’s mask nintendo 64 three days remain searching for a lost friend, link is drawn into the parallel land of termina, where a sinister mask has set the moon on a collision course with the world. with only three repeating days before disaster, link uses the ocarina of time and a collection of transformative masks to help termina’s people and uncover the tragedy behind majora’s power.">
+      <div class="launch-year" aria-label="Original launch year 2000">2000</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Majora’s Mask</span><span class="game-tag">Three days remain</span></span><span class="platform">Nintendo 64</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>Searching for a lost friend, Link is drawn into the parallel land of Termina, where a sinister mask has set the moon on a collision course with the world. With only three repeating days before disaster, Link uses the Ocarina of Time and a collection of transformative masks to help Termina’s people and uncover the tragedy behind Majora’s power.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2001 oracle of ages game boy color ages intertwined the triforce sends link to labrynna, where the oracle of ages, nayru, is possessed by the sorceress veran. history begins to unravel as veran manipulates the past to reshape the present. link travels between the two eras, restoring the flow of time and gathering the strength needed to confront the forces working behind the crisis.">
+      <div class="launch-year" aria-label="Original launch year 2001">2001</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Oracle of Ages</span><span class="game-tag">Ages intertwined</span></span><span class="platform">Game Boy Color</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>The Triforce sends Link to Labrynna, where the Oracle of Ages, Nayru, is possessed by the sorceress Veran. History begins to unravel as Veran manipulates the past to reshape the present. Link travels between the two eras, restoring the flow of time and gathering the strength needed to confront the forces working behind the crisis.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2001 oracle of seasons game boy color the seasons in chaos link is transported to holodrum just as the armored general onox kidnaps din, the oracle of seasons. with nature thrown out of balance, link learns to command spring, summer, autumn, and winter using the rod of seasons. his journey crosses a transformed landscape and connects with oracle of ages to reveal a larger plot.">
+      <div class="launch-year" aria-label="Original launch year 2001">2001</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Oracle of Seasons</span><span class="game-tag">The seasons in chaos</span></span><span class="platform">Game Boy Color</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>Link is transported to Holodrum just as the armored General Onox kidnaps Din, the Oracle of Seasons. With nature thrown out of balance, Link learns to command spring, summer, autumn, and winter using the Rod of Seasons. His journey crosses a transformed landscape and connects with Oracle of Ages to reveal a larger plot.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2002 four swords game boy advance four heroes, one blade the wind mage vaati escapes confinement and abducts princess zelda, forcing link to draw the legendary four sword. the blade divides him into four heroes who must work together through a series of shifting stages, gather rupees, and reach vaati’s palace. the adventure introduced cooperative multiplayer as a central part of zelda’s design.">
+      <div class="launch-year" aria-label="Original launch year 2002">2002</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Four Swords</span><span class="game-tag">Four heroes, one blade</span></span><span class="platform">Game Boy Advance</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>The wind mage Vaati escapes confinement and abducts Princess Zelda, forcing Link to draw the legendary Four Sword. The blade divides him into four heroes who must work together through a series of shifting stages, gather rupees, and reach Vaati’s palace. The adventure introduced cooperative multiplayer as a central part of Zelda’s design.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2002 the wind waker nintendo gamecube the great sea on a small island in a vast ocean, link’s quiet life changes when a giant bird kidnaps his sister, aryll. his rescue attempt brings him aboard the pirate tetra’s ship and into a forgotten conflict beneath the great sea. sailing from island to island, link uncovers the fate of old hyrule and the return of an ancient enemy.">
+      <div class="launch-year" aria-label="Original launch year 2002">2002</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">The Wind Waker</span><span class="game-tag">The Great Sea</span></span><span class="platform">Nintendo GameCube</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>On a small island in a vast ocean, Link’s quiet life changes when a giant bird kidnaps his sister, Aryll. His rescue attempt brings him aboard the pirate Tetra’s ship and into a forgotten conflict beneath the Great Sea. Sailing from island to island, Link uncovers the fate of old Hyrule and the return of an ancient enemy.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2004 four swords adventures nintendo gamecube hyrule divided when dark clouds gather over hyrule and a mysterious shadow link appears, princess zelda and the shrine maidens are taken. link draws the four sword and is once again divided into four. their quest leads through a hyrule filled with traps, armies, and old magic as the heroes discover that vaati is not the only danger moving behind the scenes.">
+      <div class="launch-year" aria-label="Original launch year 2004">2004</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Four Swords Adventures</span><span class="game-tag">Hyrule divided</span></span><span class="platform">Nintendo GameCube</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>When dark clouds gather over Hyrule and a mysterious Shadow Link appears, Princess Zelda and the shrine maidens are taken. Link draws the Four Sword and is once again divided into four. Their quest leads through a Hyrule filled with traps, armies, and old magic as the heroes discover that Vaati is not the only danger moving behind the scenes.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2004 the minish cap game boy advance a tiny world during hyrule’s picori festival, the sorcerer vaati shatters the sacred picori blade and turns princess zelda to stone. link teams up with ezlo, a strange talking cap who can shrink him to minish size. moving between the human world and tiny hidden communities, link works to restore the blade and stop vaati from claiming a legendary power.">
+      <div class="launch-year" aria-label="Original launch year 2004">2004</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">The Minish Cap</span><span class="game-tag">A tiny world</span></span><span class="platform">Game Boy Advance</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>During Hyrule’s Picori Festival, the sorcerer Vaati shatters the sacred Picori Blade and turns Princess Zelda to stone. Link teams up with Ezlo, a strange talking cap who can shrink him to Minish size. Moving between the human world and tiny hidden communities, Link works to restore the blade and stop Vaati from claiming a legendary power.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2006 twilight princess wii / nintendo gamecube a kingdom in shadow a spreading curtain of twilight begins consuming hyrule, transforming link into a wolf whenever he enters the shadowed realm. with the mysterious midna as his guide, he restores light to the kingdom piece by piece. their journey exposes the ambitions of the usurper zant and a deeper threat tied to hyrule’s oldest struggle for power.">
+      <div class="launch-year" aria-label="Original launch year 2006">2006</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Twilight Princess</span><span class="game-tag">A kingdom in shadow</span></span><span class="platform">Wii / Nintendo GameCube</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>A spreading curtain of Twilight begins consuming Hyrule, transforming Link into a wolf whenever he enters the shadowed realm. With the mysterious Midna as his guide, he restores light to the kingdom piece by piece. Their journey exposes the ambitions of the usurper Zant and a deeper threat tied to Hyrule’s oldest struggle for power.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2007 phantom hourglass nintendo ds the ghost ship after the events of the wind waker, tetra disappears while investigating the legendary ghost ship. link gives chase and washes up in an unfamiliar sea, where he meets the sailor linebeck and the enigmatic oshus. the search for tetra becomes a voyage across new islands and repeated descents into the dangerous temple of the ocean king.">
+      <div class="launch-year" aria-label="Original launch year 2007">2007</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Phantom Hourglass</span><span class="game-tag">The Ghost Ship</span></span><span class="platform">Nintendo DS</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>After the events of The Wind Waker, Tetra disappears while investigating the legendary Ghost Ship. Link gives chase and washes up in an unfamiliar sea, where he meets the sailor Linebeck and the enigmatic Oshus. The search for Tetra becomes a voyage across new islands and repeated descents into the dangerous Temple of the Ocean King.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2009 spirit tracks nintendo ds rails across new hyrule generations after a new hyrule is founded, its sacred railway network begins disappearing and princess zelda’s body is stolen during a plot to revive an ancient demon king. zelda’s spirit survives and joins a young engineer named link. together they restore the spirit tracks, explore the tower of spirits, and race to prevent the kingdom’s seals from collapsing.">
+      <div class="launch-year" aria-label="Original launch year 2009">2009</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Spirit Tracks</span><span class="game-tag">Rails across New Hyrule</span></span><span class="platform">Nintendo DS</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>Generations after a new Hyrule is founded, its sacred railway network begins disappearing and Princess Zelda’s body is stolen during a plot to revive an ancient demon king. Zelda’s spirit survives and joins a young engineer named Link. Together they restore the Spirit Tracks, explore the Tower of Spirits, and race to prevent the kingdom’s seals from collapsing.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2011 skyward sword wii before the kingdom long before the familiar kingdom of hyrule, link lives above the clouds on the floating island of skyloft. when zelda is swept to the surface below, he follows with the guidance of fi and the goddess sword. the journey crosses ancient ruins, repeating eras, and a primordial war whose consequences echo through the legends that follow.">
+      <div class="launch-year" aria-label="Original launch year 2011">2011</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Skyward Sword</span><span class="game-tag">Before the kingdom</span></span><span class="platform">Wii</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>Long before the familiar kingdom of Hyrule, Link lives above the clouds on the floating island of Skyloft. When Zelda is swept to the surface below, he follows with the guidance of Fi and the Goddess Sword. The journey crosses ancient ruins, repeating eras, and a primordial war whose consequences echo through the legends that follow.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2013 a link between worlds nintendo 3ds two kingdoms a sorcerer named yuga begins turning hyrule’s sages into paintings and escaping through cracks between worlds. link gains the unusual ability to become a painting himself, letting him slip along walls and cross into the parallel kingdom of lorule. there, a second royal family and a dying world complicate what first seemed like a familiar battle.">
+      <div class="launch-year" aria-label="Original launch year 2013">2013</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">A Link Between Worlds</span><span class="game-tag">Two kingdoms</span></span><span class="platform">Nintendo 3DS</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>A sorcerer named Yuga begins turning Hyrule’s Sages into paintings and escaping through cracks between worlds. Link gains the unusual ability to become a painting himself, letting him slip along walls and cross into the parallel kingdom of Lorule. There, a second royal family and a dying world complicate what first seemed like a familiar battle.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2015 tri force heroes nintendo 3ds a co-op fairy tale in the fashion-obsessed kingdom of hytopia, princess styla is cursed into an outfit she cannot remove. three heroes who share the legendary pointed ears answer the kingdom’s call and travel into the drablands. by stacking into a totem and coordinating items and costumes, the trio works through elaborate stages to break the witch’s curse.">
+      <div class="launch-year" aria-label="Original launch year 2015">2015</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Tri Force Heroes</span><span class="game-tag">A co-op fairy tale</span></span><span class="platform">Nintendo 3DS</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>In the fashion-obsessed kingdom of Hytopia, Princess Styla is cursed into an outfit she cannot remove. Three heroes who share the legendary pointed ears answer the kingdom’s call and travel into the Drablands. By stacking into a Totem and coordinating items and costumes, the trio works through elaborate stages to break the witch’s curse.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2017 breath of the wild wii u / nintendo switch a ruined hyrule link awakens after a century with almost no memory of the war that destroyed hyrule. calamity ganon remains sealed inside hyrule castle while princess zelda holds the disaster at bay. free to travel almost anywhere, link rebuilds his strength, recovers memories of the fallen champions, and prepares to face the calamity that defeated the kingdom one hundred years earlier.">
+      <div class="launch-year" aria-label="Original launch year 2017">2017</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Breath of the Wild</span><span class="game-tag">A ruined Hyrule</span></span><span class="platform">Wii U / Nintendo Switch</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>Link awakens after a century with almost no memory of the war that destroyed Hyrule. Calamity Ganon remains sealed inside Hyrule Castle while Princess Zelda holds the disaster at bay. Free to travel almost anywhere, Link rebuilds his strength, recovers memories of the fallen Champions, and prepares to face the calamity that defeated the kingdom one hundred years earlier.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2023 tears of the kingdom nintendo switch sky, surface, and depths an expedition beneath hyrule castle awakens ganondorf and triggers the upheaval, scattering ruins into the sky and opening vast chasms across the land. zelda disappears, link loses the master sword, and a mysterious new arm grants him strange abilities. his search spans hyrule’s surface, floating islands, and underground depths while revealing a story rooted in the kingdom’s distant past.">
+      <div class="launch-year" aria-label="Original launch year 2023">2023</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Tears of the Kingdom</span><span class="game-tag">Sky, surface, and Depths</span></span><span class="platform">Nintendo Switch</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>An expedition beneath Hyrule Castle awakens Ganondorf and triggers the Upheaval, scattering ruins into the sky and opening vast chasms across the land. Zelda disappears, Link loses the Master Sword, and a mysterious new arm grants him strange abilities. His search spans Hyrule’s surface, floating islands, and underground Depths while revealing a story rooted in the kingdom’s distant past.</p></div>
+      </details>
+    </li><li class="game-entry reveal" data-search="2024 echoes of wisdom nintendo switch the princess takes the lead after link vanishes into a mysterious rift, strange tears begin swallowing people and places throughout hyrule. princess zelda escapes captivity and joins an ethereal companion named tri, whose tri rod can create echoes of objects and monsters. armed with ingenuity rather than a traditional hero’s toolkit, zelda enters the still world to mend the rifts and save her kingdom.">
+      <div class="launch-year" aria-label="Original launch year 2024">2024</div>
+      <details class="game-card">
+        <summary><span class="game-heading"><span class="game-title">Echoes of Wisdom</span><span class="game-tag">The princess takes the lead</span></span><span class="platform">Nintendo Switch</span><span class="chevron" aria-hidden="true">＋</span></summary>
+        <div class="synopsis"><div class="synopsis-label">Story synopsis</div><p>After Link vanishes into a mysterious rift, strange tears begin swallowing people and places throughout Hyrule. Princess Zelda escapes captivity and joins an ethereal companion named Tri, whose Tri Rod can create echoes of objects and monsters. Armed with ingenuity rather than a traditional hero’s toolkit, Zelda enters the Still World to mend the rifts and save her kingdom.</p></div>
+      </details>
+    </li></ol>
+        <div class="empty-state" id="emptyState">No adventures match that search. Try a different title, year, platform, or story term.</div>
+      </div>
+    </section>
+
+    <div class="quote-band">
+      <div class="wrap inner reveal">
+        <div class="symbol" aria-hidden="true">✦</div>
+        <p>Adventure begins the moment the road stops telling you where to go.</p>
+      </div>
+    </div>
+
+    <section id="timeline">
+      <div class="wrap">
+        <div class="section-kicker reveal">A fan's shortcut through history</div>
+        <h2 class="section-title reveal">Four eras worth revisiting.</h2>
+        <p class="section-lead reveal">
+          This is not an official canon timeline — just a clean way to browse a few major phases of the series.
+        </p>
+
+        <div class="timeline">
+          <article class="era reveal">
+            <div class="year">1986 → 1993</div>
+            <h3>The foundation</h3>
+            <p>The original adventure, Zelda II, A Link to the Past, and Link's Awakening established exploration, items, dungeons, and mystery.</p>
+          </article>
+          <article class="era reveal">
+            <div class="year">1998 → 2006</div>
+            <h3>The 3D revolution</h3>
+            <p>Ocarina of Time, Majora's Mask, The Wind Waker, and Twilight Princess reimagined the series in sweeping new forms.</p>
+          </article>
+          <article class="era reveal">
+            <div class="year">2007 → 2015</div>
+            <h3>Experimentation</h3>
+            <p>Portable adventures, motion controls, remakes, and A Link Between Worlds kept reshaping what Zelda could feel like.</p>
+          </article>
+          <article class="era reveal">
+            <div class="year">2017 → today</div>
+            <h3>Open-air Hyrule</h3>
+            <p>Breath of the Wild and Tears of the Kingdom pushed systemic play, freedom, verticality, and player creativity to the forefront.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="join reveal">
+          <div>
+            <div class="section-kicker">Built by fans, for fans</div>
+            <h2>A quiet corner of Hyrule.</h2>
+            <p>
+              TLOZ.net is an independent tribute to the places, stories, characters, mysteries, and design ideas that have made The Legend of Zelda memorable across generations. Whether your first adventure began on an 8-bit overworld or beneath the skies of modern Hyrule, there is always another legend worth revisiting.
+            </p>
+          </div>
+          <div class="cta">
+            <a class="btn primary" href="#top">Return to the top ↑</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <p>
+        <span class="tiny-brand">TLOZ.NET</span><br>
+        Unofficial fan site. The Legend of Zelda, Nintendo, and related names and marks belong to their respective owners.
+        This site is not affiliated with or endorsed by Nintendo.
+      </p>
+      <div>© <span id="year"></span> TLOZ.net</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const items = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    items.forEach((item) => observer.observe(item));
+  </script>
+
+  <script>
+    const gameSearch=document.getElementById("gameSearch");
+    const gameEntries=[...document.querySelectorAll(".game-entry")];
+    const resultCount=document.getElementById("resultCount");
+    const emptyState=document.getElementById("emptyState");
+    function filterGames(){const q=gameSearch.value.trim().toLowerCase();let visible=0;gameEntries.forEach(e=>{const match=!q||e.dataset.search.includes(q);e.hidden=!match;if(match)visible++;});resultCount.textContent=visible+(visible===1?" adventure":" adventures");emptyState.classList.toggle("show",visible===0);}
+    gameSearch.addEventListener("input",filterGames);
+    document.getElementById("expandAll").addEventListener("click",()=>gameEntries.filter(e=>!e.hidden).forEach(e=>e.querySelector("details").open=true));
+    document.getElementById("collapseAll").addEventListener("click",()=>gameEntries.forEach(e=>e.querySelector("details").open=false));
+  </script>
+</body>
+</html>
